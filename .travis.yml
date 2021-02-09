@@ -1,0 +1,21 @@
+language: c
+
+os:
+    - linux
+
+compiler:
+    - gcc
+
+install:
+    - pip install --user conan
+    - conan user
+
+script:
+    - conan export travis/travis
+    - conan install python3/3.6.1@travis/travis --build -g virtualenv
+    - source activate.sh
+    - which python3.6 | grep .conan
+    - source deactivate.sh
+
+notifications:
+      email: false
